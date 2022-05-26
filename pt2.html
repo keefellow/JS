@@ -29,15 +29,11 @@
 
 </style>  
 <script type="text/javascript">
-var data = `{
-    "product":"testidsfsdfsdfsng",
-    "price": 11,
-    "category":"PdfssfPP"
-}`;
 
 
 
-fetch('./data/people.json')
+
+fetch('./data/records.json')
             .then(function (response) {
                 return response.json();
             })
@@ -49,9 +45,9 @@ fetch('./data/people.json')
             });
         function showData(data) {
             
-            document.getElementById("recordNum").innerHTML = data[1].firstName;
-            document.getElementById("title").innerHTML = 2;
-            document.getElementById("main").innerHTML = 3;  
+            document.getElementById("recordNum").innerHTML = data[id].recNum;
+            document.getElementById("title").innerHTML = data[id].title;
+            document.getElementById("main").innerHTML = data[id].main;  
 
 }
          
@@ -59,21 +55,20 @@ fetch('./data/people.json')
 
 
 
-
-
-
-
-
-window.onload = WhenButtonClicked
+var id = 0
 
 function WhenButtonClicked(){
-
-
-document.getElementById("recordNum").innerHTML = 1666;
-document.getElementById("title").innerHTML = 2;
-document.getElementById("main").innerHTML = 3;  
-
+  var id = id +1  
 }
+
+
+
+
+document.getElementById("recordNum").innerHTML = "";
+document.getElementById("title").innerHTML = "";
+document.getElementById("main").innerHTML = "";  
+
+
 
   function includeBtn(){
 

@@ -1,17 +1,17 @@
 [
     {
         "recNum": "1",
-        "title": "John1",
-        "main": "Doe1"
+        "title": "John",
+        "main": "Doe"
     },
     {
         "recNum": "2",
-        "title": "Joh22n",
-        "main": "Do222e"
+        "title": "Mary",
+        "main": "Peterson"
     },
     {
         "recNum": "3",
-        "title": "Joehn3",
-        "main": "Doe333"
+        "title": "George",
+        "main": "Hansen"
     }
 ]

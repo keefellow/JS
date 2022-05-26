@@ -34,6 +34,7 @@
 
  fetch('./data/records.json')
             .then(function (response) {
+              var data2 = data
                 return response.json();
             })
             .then(function (data) {
@@ -58,8 +59,8 @@ var id = 0
 
 function WhenButtonClicked(){
   var id = id +1  
-   document.getElementById("recordNum").innerHTML = data[id].recNum;
-   document.getElementById("title").innerHTML = data[id].title;
+   document.getElementById("recordNum").innerHTML = data2[id].recNum;
+   document.getElementById("title").innerHTML = data2[id].title;
 }
 
 

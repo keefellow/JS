@@ -31,13 +31,14 @@
 <script type="text/javascript">
 
 
+function WhenButtonClicked(){
+  var id = id +1  
 
  fetch('./data/records.json')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                var data2 = data;
                 showData(data);
             })
             .catch(function (err) {
@@ -50,21 +51,14 @@
             document.getElementById("main").innerHTML = data[id].main;  
 }
 
-
+}
 
 
 
 
 var id = 0
 
-function WhenButtonClicked(){
-  var id = id +1  
-   document.getElementById("recordNum").innerHTML = data2[id].recNum;
-   document.getElementById("title").innerHTML = data2[id].title;
-}
-
-
-
+  
 
 
 

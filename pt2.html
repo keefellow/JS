@@ -59,14 +59,15 @@ var id = 0
 
 function WhenButtonClicked(){
   var id = id +1  
+  showData
 }
 
 
 
 
-document.getElementById("recordNum").innerHTML = "";
-document.getElementById("title").innerHTML = "";
-document.getElementById("main").innerHTML = "";  
+document.getElementById("recordNum").innerHTML = "loading...";
+document.getElementById("title").innerHTML = "loading...";
+document.getElementById("main").innerHTML = "loading...";  
 
 
 
@@ -118,3 +119,4 @@ xhr.send(data);
 <br>
 </body>
 </html>
+

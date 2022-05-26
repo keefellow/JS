@@ -55,11 +55,27 @@ fetch('./data/records.json')
 
 
 
+
+
 var id = 0
 
 function WhenButtonClicked(){
   var id = id +1  
-  showData
+  fetch('./data/records.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                showData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function showData(data) {
+            
+            document.getElementById("recordNum").innerHTML = data[id].recNum;
+            document.getElementById("title").innerHTML = data[id].title;
+            document.getElementById("main").innerHTML = data[id].main;  
 }
 
 
@@ -119,4 +135,3 @@ xhr.send(data);
 <br>
 </body>
 </html>
-

@@ -32,18 +32,7 @@
 
 
 
- 
-
-
-
-
-
-
-var id = 0
-
-function WhenButtonClicked(){
-  var id = id +1  
-  fetch('./data/records.json')
+ fetch('./data/records.json')
             .then(function (response) {
                 return response.json();
             })
@@ -59,6 +48,17 @@ function WhenButtonClicked(){
             document.getElementById("title").innerHTML = data[id].title;
             document.getElementById("main").innerHTML = data[id].main;  
 }
+
+
+
+
+
+
+var id = 0
+
+function WhenButtonClicked(){
+  var id = id +1  
+   document.getElementById("recordNum").innerHTML = "data[id].recNum";
 }
 
 

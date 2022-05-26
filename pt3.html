@@ -32,25 +32,7 @@
 
 
 
-
-fetch('./data/records.json')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                showData(data);
-            })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
-        function showData(data) {
-            
-            document.getElementById("recordNum").innerHTML = data[id].recNum;
-            document.getElementById("title").innerHTML = data[id].title;
-            document.getElementById("main").innerHTML = data[id].main;  
-
-}
-         
+ 
 
 
 

@@ -34,10 +34,10 @@
 
  fetch('./data/records.json')
             .then(function (response) {
-              var data2 = data
                 return response.json();
             })
             .then(function (data) {
+                var data2 = data;
                 showData(data);
             })
             .catch(function (err) {

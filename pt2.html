@@ -1,0 +1,125 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>
+   Screeners
+  </title>
+<head>
+<style type="text/css">
+  .button {
+  background-color: #e7e7e7; 
+  color: black;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.buttonSubmit{
+  background-color: #4CAF50; /* Green */
+}
+
+.button:active {
+           
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+
+</style>  
+<script type="text/javascript">
+var data = `{
+    "product":"testidsfsdfsdfsng",
+    "price": 11,
+    "category":"PdfssfPP"
+}`;
+
+
+
+fetch('./data/people.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                showData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function showData(data) {
+            
+            document.getElementById("recordNum").innerHTML = data[1].firstName;
+            document.getElementById("title").innerHTML = 2;
+            document.getElementById("main").innerHTML = 3;  
+
+}
+         
+
+
+
+
+
+
+
+
+
+window.onload = WhenButtonClicked
+
+function WhenButtonClicked(){
+
+
+document.getElementById("recordNum").innerHTML = 1666;
+document.getElementById("title").innerHTML = 2;
+document.getElementById("main").innerHTML = 3;  
+
+}
+
+  function includeBtn(){
+
+var url = "https://prod-13.southeastasia.logic.azure.com:443/workflows/875bf27c628247f4bfc4d5e8b5701bb8/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3shZtrofkHdmardqb21V55gyjnHUf5Y6hZUSgVcFbdg";
+
+var xhr = new XMLHttpRequest();
+xhr.open("POST", url);
+
+xhr.setRequestHeader("Accept", "application/json");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+   }};
+
+
+
+xhr.send(data);
+
+}
+</script>
+<body>  
+<p>Screening</p>
+
+<button onclick ="WhenButtonClicked()">Refresh</button>
+<button onclick ="WhenButtonClicked()">Previous</button>
+<button onclick ="WhenButtonClicked()">Next</button>
+<p id ="recordNum"></p>
+<p id ="title"></p>
+<p id ="main"></p>  
+<p>Comments:</p> 
+<textarea type="feedback" cols="40" rows = "5" id="fb"></textarea>
+<br>
+<br>
+<input id="includeBtn" type="button" class="button buttonSubmit" value="Include" onclick="includebtn()" />
+<input id="kivBtn" type="button" class="button buttonSubmit" value="KIV" onclick="kivbtn()" />
+<input id="excludeBtn" type="button" class="button buttonSubmit" value="Exclude" onclick="excludebtn()" />
+
+
+
+<br>
+<br>
+
+<br>
+<br>
+</body>
+</html>

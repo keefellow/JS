@@ -1,0 +1,244 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+   Screeners
+  </title>
+<head>
+
+<style type="text/css">
+  .button {
+  background-color: #e7e7e7; 
+  color: black;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.includeSubmit{
+  background-color: #4CAF50; /* Green */
+}
+
+.excludeSubmit{
+  background-color: #DC143C; /* Red */
+}
+
+.kivSubmit{
+  background-color: #FFF8DC; /* yellow */
+}
+
+.arrows{
+  background-color: #0B0B0C ; /* black */
+  color: white;
+}
+
+.button:active {
+           
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+
+label {
+    padding-right: 10px;
+    font-size: 1rem;
+}
+
+
+.slidecontainer {
+  width: 100%;
+}
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+</style> 
+
+<body>
+<h1>Screening</h1>
+<input type="range" min="1" max="7" value="1" class="slider" id="myRange">
+<br><br>
+<input id="previousBtn" type="button" class="button arrows" value="<<<<" onclick="previousClicked()" />
+<input id="nextBtn" type="button" class="button arrows" value=">>>>" onclick="nextClicked()" /><br>
+
+<p><strong>Record:</strong></p>
+<p><span id="select"></span></p>  
+<p><strong>Title:</strong></p>  
+<p id ="title"></p>
+<p><strong>Main text:</strong></p>
+<p id ="text"></p>
+<p><strong>Decision:</strong></p>
+<p id ="decision"></p>
+<p><strong>Comments:</strong></p> 
+<textarea type="feedback" cols="40" rows = "5" id="fb"></textarea>
+<br>
+<br>
+
+<p id ="status"></p> 
+
+<input id="includeBtn" type="button" class="button includeSubmit" value="Include" onclick="updateINC()" />
+<input id="kivBtn" type="button" class="button kivSubmit" value="KIV" onclick="updateKIV()" />
+<input id="excludeBtn" type="button" class="button excludeSubmit" value="Exclude" onclick="updateEXCL()" /><br><br>
+
+<br><br><br><br></body>
+
+<script type="text/javascript">
+//var comments = document.getElementById("fb").value; 
+var id = -1;
+var data = "";
+var recNum = "";
+var title = "";
+var text = "";
+var notes = "";
+//var decision = "";
+var aid = "";
+
+display(0);
+
+function display(id) {
+
+        document.getElementById("status").innerHTML = "Processing..."; 
+
+        var url = "https://api.airtable.com/v0/appiIdiW6skgSjnct/Table1/?maxRecords=30&view=Grid%20view";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+        xhr.setRequestHeader("Authorization", "Bearer key7LOdJXzCbfnKMr");
+        xhr.onreadystatechange = function () {
+           if (xhr.readyState === 4) {
+              console.log(xhr.status);
+              console.log(xhr.responseText);
+
+              data = JSON.parse(xhr.responseText);
+              data = data.records;
+              aid = data[id].id;
+              recNum = data[id].fields.recNum;
+              title = data[id].fields.title;
+              text = data[id].fields.text;
+              notes = data[id].fields.notes;
+              decision = data[id].fields.decision;              
+              document.getElementById("select").innerHTML = id + 1; 
+              document.getElementById("title").innerHTML = title;
+              document.getElementById("text").innerHTML = text;   
+              document.getElementById("fb").value = notes || "";
+              document.getElementById("decision").innerHTML = decision || "";
+              document.getElementById("status").innerHTML = "";  
+              
+              
+              }};
+xhr.send();
+}
+
+function nextClicked(){
+if (id < 7){ 
+    id = id + 1  
+    display(id);
+ }
+}
+
+function previousClicked(){
+if (id > 0){ 
+    id = id -1  
+    display(id);
+ }
+}
+
+function updateINC() {
+
+var update_data = '{"records": [{"id":"'+ aid + '","fields": {"decision": "INCLUDE", "notes":"'+ document.getElementById("fb").value + '"}}]}';
+var url = "https://api.airtable.com/v0/appiIdiW6skgSjnct/Table1";
+var xhr = new XMLHttpRequest();
+xhr.open("PATCH", url);
+xhr.setRequestHeader("Authorization", "Bearer key7LOdJXzCbfnKMr");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      //console.log(xhr.status);
+      //console.log(xhr.responseText);
+   }};
+
+xhr.send(update_data);
+display(id);
+}
+
+function updateEXCL() {
+
+var update_data = '{"records": [{"id":"'+ aid + '","fields": {"decision": "EXCLUDE", "notes":"'+ document.getElementById("fb").value + '"}}]}';
+var url = "https://api.airtable.com/v0/appiIdiW6skgSjnct/Table1";
+var xhr = new XMLHttpRequest();
+xhr.open("PATCH", url);
+xhr.setRequestHeader("Authorization", "Bearer key7LOdJXzCbfnKMr");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      //console.log(xhr.status);
+      //console.log(xhr.responseText);
+
+   }};
+
+xhr.send(update_data);
+display(id);
+}
+
+
+function updateKIV() {
+
+var update_data = '{"records": [{"id":"'+ aid + '","fields": {"decision": "KIV", "notes":"'+ document.getElementById("fb").value + '"}}]}';
+var url = "https://api.airtable.com/v0/appiIdiW6skgSjnct/Table1";
+var xhr = new XMLHttpRequest();
+xhr.open("PATCH", url);
+xhr.setRequestHeader("Authorization", "Bearer key7LOdJXzCbfnKMr");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.onreadystatechange = function () {
+   if (xhr.readyState === 4) {
+      //console.log(xhr.status);
+      //console.log(xhr.responseText);
+   }};
+
+xhr.send(update_data);
+display(id);
+}
+
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("select");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  id = this.value - 1;
+  display(id);
+}
+
+</script>
+</html>
